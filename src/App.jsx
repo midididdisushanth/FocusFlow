@@ -4,7 +4,8 @@ import {
   Sun, Moon, Award, RefreshCw, LayoutDashboard, ListTodo, 
   UserCircle, LogOut, PieChart as PieChartIcon, Users, 
   Copy, UserPlus, AlignLeft, Activity, Edit2, X, Check, 
-  Mail, Bell, ShieldCheck, Utensils, Brain, Dumbbell
+  Mail, Bell, ShieldCheck, Utensils, Brain, Dumbbell,
+  ChevronLeft, ChevronRight
 } from 'lucide-react';
 
 // --- FIREBASE IMPORTS ---
@@ -148,8 +149,8 @@ const GlobalStyles = () => (
 // --- HELPER COMPONENTS ---
 const BackgroundImage = ({ darkMode }) => {
   const [bgError, setBgError] = useState(false);
-  const [bgSource, setBgSource] = useState('/background.png'); 
-  const handleError = () => { if (bgSource === '/background.png') setBgSource('/background.jpg'); else setBgError(true); };
+  const [bgSource, setBgSource] = useState('background.png'); 
+  const handleError = () => { if (bgSource === 'background.png') setBgSource('background.jpg'); else setBgError(true); };
   return (
     <div className="fixed inset-0 z-0 overflow-hidden bg-slate-900">
       {/* Fallback gradient */}
@@ -193,7 +194,6 @@ const SimplePieChart = ({ data }) => {
 
 // --- SPIDER GRAPH COMPONENT ---
 const SpiderGraph = ({ data, label, color }) => {
-  // Data expects 5 points: [Energy, Focus, Mood, Health, Sleep] (0-100)
   const size = 200;
   const center = size / 2;
   const radius = 80;
@@ -210,7 +210,6 @@ const SpiderGraph = ({ data, label, color }) => {
 
   const axisLabels = ["Energy", "Focus", "Mood", "Health", "Sleep"];
   const polyPoints = getPoints(data);
-  const fullPolyPoints = getPoints([100, 100, 100, 100, 100]); // Outer ring
 
   return (
     <div className="flex flex-col items-center animate-fadeIn">
@@ -334,6 +333,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [user, setUser] = useState(null);
   const [isOfflineMode, setIsOfflineMode] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // --- STATE ---
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -377,8 +377,11 @@ export default function App() {
       if (currentUser) {
         setUser(currentUser);
         setIsOfflineMode(false);
+        setLoading(false);
       } else {
-        signInAnonymously(auth).catch((error) => {
+        signInAnonymously(auth).then(() => {
+          setLoading(false);
+        }).catch((error) => {
           console.warn("Guest login unavailable:", error.message);
           setIsOfflineMode(true);
           const localData = localStorage.getItem('focusFlowData');
@@ -390,6 +393,7 @@ export default function App() {
             setDietPlan(parsed.dietPlan || defaultDietPlan);
             setWaterIntake(parsed.waterIntake || 0);
           }
+          setLoading(false);
         });
       }
     });
@@ -524,7 +528,6 @@ export default function App() {
   const glassClass = `backdrop-blur-xl border border-white/20 shadow-xl transition-all duration-300 ${darkMode ? 'bg-slate-900/60 text-slate-100' : 'bg-white/70 text-slate-900'}`;
   const inputClass = `w-full p-4 rounded-xl border outline-none transition-all placeholder:text-slate-400 font-medium ${darkMode ? 'bg-black/20 border-white/10 focus:border-indigo-500' : 'bg-white/50 border-slate-200 focus:border-indigo-600'}`;
   const btnGradient = "bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-500/30 transition-all transform hover:-translate-y-0.5";
-
 
   if (loading) return <div className="min-h-screen bg-slate-900 flex items-center justify-center text-indigo-400 font-bold tracking-widest uppercase animate-pulse">Loading FocusFlow...</div>;
 
@@ -782,7 +785,7 @@ export default function App() {
           {activeTab === 'stats' && (
             <div className="space-y-6 animate-fadeIn">
               <div className={`p-6 rounded-2xl flex flex-col items-center ${glassClass}`}><h2 className="text-lg font-semibold mb-6">Today's Breakdown 🥧</h2><SimplePieChart data={pieData} /><div className="mt-8 flex gap-6 flex-wrap justify-center">{pieData.map((d, i) => (<div key={i} className="flex items-center gap-2"><div className="w-3 h-3 rounded-full" style={{ backgroundColor: d.color }} /><span className={`text-sm ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>{d.name} ({d.value})</span></div>))}</div></div>
-              <div className={`p-6 rounded-2xl border ${glassClass}`}><div className="flex items-center gap-3 mb-4"><Award className="text-amber-500" /><h2 className="text-lg font-semibold">Consistency Score 🏆</h2></div><div className="flex items-end gap-2"><span className="text-4xl font-bold">{completionRate}%</span><span className="text-slate-500 mb-1">completed today 🎯</span></div><div className={`w-full h-2 mt-4 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-200'}`}><div className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-1000 shadow-lg shadow-indigo-500/50" style={{ width: `${completionRate}%` }} /></div></div>
+              <div className={`p-6 rounded-2xl border ${glassClass}`}><div className="flex items-center gap-3 mb-4"><Award className="text-amber-500" /><h2 className="text-lg font-semibold">Consistency Score 🏆</h2></div><div className="flex items-end gap-2"><span className="text-4xl font-bold">{completionRate}%</span><span className="text-slate-500 mb-1">completed today 🎯</span></div><div className={`w-full h-2 mt-4 rounded-full ${darkMode ? 'bg-slate-700' : 'bg-slate-200'}`}><div className="h-full bg-indigo-500 rounded-full transition-all duration-1000 shadow-lg shadow-indigo-500/50" style={{ width: `${completionRate}%` }} /></div></div>
               
               {/* Wellness Hub Section */}
               <WellnessSection glassClass={glassClass} darkMode={darkMode} />
