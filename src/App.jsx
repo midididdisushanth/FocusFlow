@@ -39,94 +39,94 @@ const defaultDietPlan = {
   Monday: {
     type: "Veg 🥦",
     meals: {
-      Breakfast: "100g paneer + 50g oats + 5 almonds + 1 fruit",
-      Lunch: "2 rotis + dal + mixed veg + salad",
-      Snacks: "Sprouts bowl + buttermilk",
-      Dinner: "2 rotis + veg curry + curd"
+      Breakfast: "100g Paneer + 50g Oats + 6 Almonds + 1 Fruit",
+      Lunch: "2 Rotis + 1 cup Dal + 1 cup Mixed Veg + 100g Salad",
+      Snacks: "1 bowl Sprouts (150g) + 250ml Buttermilk",
+      Dinner: "2 Rotis + 150g Veg Curry + 150g Curd"
     },
     backup: null
   },
   Tuesday: {
     type: "Non-Veg 🍗",
     meals: {
-      Breakfast: "3 whole eggs + 2 whites + oats",
-      Lunch: "150g chicken + 2 rotis + veg",
-      Snacks: "2 boiled eggs / whey",
-      Dinner: "150g fish + stir fry veg"
+      Breakfast: "3 Whole Eggs + 2 Whites + 50g Oats",
+      Lunch: "150-200g Chicken + 2 Rotis + 150g Veg",
+      Snacks: "2 Boiled Eggs OR 1 scoop Whey",
+      Dinner: "150g Fish/Chicken + 200g Veg + 100g Rice (opt)"
     },
     backup: {
-      Breakfast: "100g paneer + oats",
-      Lunch: "150g paneer + 1 cup dal + 2 rotis",
-      Snacks: "Whey / roasted chana",
-      Dinner: "Tofu/paneer + veg + curd"
+      Breakfast: "100g Paneer + 50g Oats",
+      Lunch: "150g Paneer OR 100g Soy Chunks + 2 Rotis + 150g Veg",
+      Snacks: "1 scoop Whey",
+      Dinner: "150g Tofu + 200g Veg + 100g Rice (opt)"
     }
   },
   Wednesday: {
     type: "Non-Veg 🍗",
     meals: {
-      Breakfast: "Eggs + oats",
-      Lunch: "200g chicken + salad",
-      Snacks: "Roasted chana",
-      Dinner: "150g chicken + veg"
+      Breakfast: "3 Whole Eggs + 2 Whites + 50g Oats",
+      Lunch: "150-200g Chicken + 2 Rotis + 150g Veg",
+      Snacks: "2 Boiled Eggs OR 1 scoop Whey",
+      Dinner: "150g Fish/Chicken + 200g Veg + 100g Rice (opt)"
     },
     backup: {
-      Breakfast: "Paneer + oats",
-      Lunch: "Rajma + paneer + salad",
-      Snacks: "Roasted chana",
-      Dinner: "Soy chunks + veg"
+      Breakfast: "100g Paneer + 50g Oats",
+      Lunch: "150g Paneer OR 100g Soy Chunks + 2 Rotis + 150g Veg",
+      Snacks: "1 scoop Whey",
+      Dinner: "150g Tofu + 200g Veg + 100g Rice (opt)"
     }
   },
   Thursday: {
     type: "Non-Veg 🍗",
     meals: {
-      Breakfast: "Eggs + oats",
-      Lunch: "Fish + small rice + veg",
-      Snacks: "Whey + almonds",
-      Dinner: "Chicken + veg"
+      Breakfast: "3 Whole Eggs + 2 Whites + 50g Oats",
+      Lunch: "150-200g Chicken + 2 Rotis + 150g Veg",
+      Snacks: "2 Boiled Eggs OR 1 scoop Whey",
+      Dinner: "150g Fish/Chicken + 200g Veg + 100g Rice (opt)"
     },
     backup: {
-      Breakfast: "Paneer + oats",
-      Lunch: "Dal + tofu + small rice",
-      Snacks: "Whey + almonds",
-      Dinner: "Paneer bhurji + veg"
+      Breakfast: "100g Paneer + 50g Oats",
+      Lunch: "150g Paneer OR 100g Soy Chunks + 2 Rotis + 150g Veg",
+      Snacks: "1 scoop Whey",
+      Dinner: "150g Tofu + 200g Veg + 100g Rice (opt)"
     }
   },
   Friday: {
     type: "Non-Veg 🍗",
     meals: {
-      Breakfast: "Eggs + oats",
-      Lunch: "Chicken + 2 rotis + veg",
-      Snacks: "Boiled eggs",
-      Dinner: "Fish + veg"
+      Breakfast: "3 Whole Eggs + 2 Whites + 50g Oats",
+      Lunch: "150-200g Chicken + 2 Rotis + 150g Veg",
+      Snacks: "2 Boiled Eggs OR 1 scoop Whey",
+      Dinner: "150g Fish/Chicken + 200g Veg + 100g Rice (opt)"
     },
     backup: {
-      Breakfast: "Paneer + oats",
-      Lunch: "Chole + 2 rotis + paneer",
-      Snacks: "Sprouts",
-      Dinner: "Tofu + veg + curd"
+      Breakfast: "100g Paneer + 50g Oats",
+      Lunch: "150g Paneer OR 100g Soy Chunks + 2 Rotis + 150g Veg",
+      Snacks: "1 scoop Whey",
+      Dinner: "150g Tofu + 200g Veg + 100g Rice (opt)"
     }
   },
   Saturday: {
     type: "Veg 🥗",
     meals: {
-      Breakfast: "Paneer + oats",
-      Lunch: "Dal + 2 rotis + veg + curd",
-      Snacks: "Sprouts + fruit",
-      Dinner: "Veg soup + paneer"
+      Breakfast: "120g Paneer + 50g Oats",
+      Lunch: "1 cup Dal + 2 Rotis + 150g Veg",
+      Snacks: "150g Sprouts",
+      Dinner: "250ml Veg Soup + 80g Paneer"
     },
     backup: null
   },
   Sunday: {
     type: "Mix 🍲",
     meals: {
-      Breakfast: "Eggs + oats",
-      Lunch: "Chicken + dal + 2 rotis",
-      Snacks: "Fruit + nuts",
-      Dinner: "Veg meal + curd"
+      Breakfast: "3 Whole Eggs + 2 Whites + 50g Oats",
+      Lunch: "150g Chicken + 1 cup Dal + 2 Rotis",
+      Snacks: "1 Fruit + 5 Almonds",
+      Dinner: "Moderate Veg Meal + 150g Curd"
     },
     backup: null
   },
-  Notes: "🔥 Protein Target:\n- Non-veg days: 140–150g\n- Veg fallback days: 125–135g\n- Veg only days: 115–125g\n\n💡 To Maintain Protein on Veg Days:\nIf needed, add 1 scoop whey (25g protein) OR 50g extra paneer."
+  Notes: "🎯 DAILY TARGETS:\n- Calories: 2100–2300 kcal\n- Protein: 130–150g\n- Water: 3.2–3.8 L\n\n🌿 VEG BACKUP RULES:\n- 150g Chicken = 150g Paneer OR 100g Soy chunks\n- 150g Fish = 150g Tofu\n- 2 Eggs snack = 1 scoop Whey"
 };
 
 // --- GLOBAL STYLES (Includes Pouring Animation) ---
@@ -806,7 +806,7 @@ export default function App() {
                   <textarea
                     value={dietPlan.Notes}
                     onChange={(e) => setDietPlan({ ...dietPlan, Notes: e.target.value })}
-                    className={`w-full h-40 p-3 text-sm rounded-xl border bg-transparent ${darkMode ? 'border-amber-500/30 text-amber-100 focus:border-amber-500' : 'border-amber-300 text-amber-900 focus:border-amber-500'}`}
+                    className={`w-full h-48 p-3 text-sm rounded-xl border bg-transparent ${darkMode ? 'border-amber-500/30 text-amber-100 focus:border-amber-500' : 'border-amber-300 text-amber-900 focus:border-amber-500'}`}
                   />
                 ) : (
                   <div className={`whitespace-pre-line text-sm leading-relaxed font-medium ${darkMode ? 'text-amber-100/80' : 'text-amber-900/80'}`}>
