@@ -337,6 +337,7 @@ export default function App() {
 
   // --- STATE ---
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [realTime, setRealTime] = useState(new Date()); // Live ticking clock
   const [activeTab, setActiveTab] = useState('planner');
   const [isBulkMode, setIsBulkMode] = useState(false);
 
@@ -372,6 +373,12 @@ export default function App() {
   ];
 
   // --- INITIALIZATION ---
+  useEffect(() => {
+    // Real-time clock interval
+    const timer = setInterval(() => setRealTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -426,6 +433,14 @@ export default function App() {
     });
     return () => unsubscribe();
   }, [user]);
+
+  const getGreeting = () => {
+    const hour = realTime.getHours();
+    const userName = user?.displayName || user?.email?.split('@')[0] || "Friend";
+    if (hour < 12) return `Good morning, ${userName}`;
+    if (hour < 18) return `Good afternoon, ${userName}`;
+    return `Good evening, ${userName}`;
+  };
 
   const saveData = async (newTasks, newHabits, newHistory, newDate, newDietPlan, newWaterIntake) => {
     const t = newTasks !== undefined ? newTasks : tasks;
@@ -564,20 +579,41 @@ export default function App() {
       <div className="relative z-10 flex flex-col min-h-screen">
         <header className={`sticky top-0 z-30 backdrop-blur-md border-b ${darkMode ? 'bg-slate-900/50 border-white/5' : 'bg-white/50 border-white/20'}`}>
           <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+            {/* LEFT: Dynamic Greeting & Welcome */}
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-xl backdrop-blur-sm ${darkMode ? 'bg-indigo-500/20 text-indigo-400' : 'bg-indigo-100/80 text-indigo-600'}`}>
                 <LayoutDashboard size={24} />
               </div>
               <div>
-                <h1 className="font-bold text-xl leading-none drop-shadow-sm tracking-tight">FocusFlow 🌊</h1>
+                <h1 className="font-bold text-lg sm:text-xl leading-none drop-shadow-sm tracking-tight">
+                  {getGreeting()} {realTime.getHours() < 12 ? '🌅' : realTime.getHours() < 18 ? '☀️' : '🌙'}
+                </h1>
                 <p className={`text-xs mt-1 font-medium ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>
-                  {currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })} 📅
+                  Welcome to FocusFlow 🌊
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <button onClick={simulateEndDay} className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all hidden sm:flex backdrop-blur-sm ${darkMode ? 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/20' : 'bg-emerald-50/80 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'}`} title="Finish today and start tomorrow"><RefreshCw size={14} /> End Day 🌅</button>
-              <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-lg transition-colors backdrop-blur-sm ${darkMode ? 'hover:bg-slate-800/50 text-slate-300' : 'hover:bg-white/50 text-slate-600'}`}>{darkMode ? <Sun size={20} /> : <Moon size={20} />}</button>
+
+            {/* RIGHT: Clock, Controls & Profile */}
+            <div className="flex items-center gap-3">
+              
+              {/* Live Clock & Date */}
+              <div className="hidden sm:flex flex-col items-end mr-1 text-right">
+                <span className="font-bold text-sm leading-none drop-shadow-sm">
+                  {realTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </span>
+                <span className={`text-[10px] font-medium mt-1 uppercase tracking-wider ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
+                  {realTime.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })} 📅
+                </span>
+              </div>
+
+              <button onClick={simulateEndDay} className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all hidden md:flex backdrop-blur-sm ${darkMode ? 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/20' : 'bg-emerald-50/80 text-emerald-700 hover:bg-emerald-100 border border-emerald-200'}`} title="Finish today and start tomorrow"><RefreshCw size={14} /> End Day 🌅</button>
+              <button onClick={() => setDarkMode(!darkMode)} className={`p-2 rounded-lg transition-colors backdrop-blur-sm hidden sm:block ${darkMode ? 'hover:bg-slate-800/50 text-slate-300' : 'hover:bg-white/50 text-slate-600'}`}>{darkMode ? <Sun size={20} /> : <Moon size={20} />}</button>
+
+              {/* Profile Icon */}
+              <button onClick={() => setActiveTab('profile')} className="w-10 h-10 ml-1 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-sm font-bold text-white shadow-lg ring-2 ring-white/20 hover:scale-105 transition-transform" title="My Profile">
+                {(user?.displayName || user?.email || 'U')[0].toUpperCase()}
+              </button>
             </div>
           </div>
         </header>
